@@ -2,7 +2,6 @@
 - hosts: localhost
   connection: local
   gather_facts: no
-  vars_files: "{{ myvarfile }}"
   tasks:
   - name: Run a script
     script: start_automation_task.sh

@@ -2,6 +2,7 @@
 - hosts: localhost
   connection: local
   gather_facts: no
+  vars_files: "{{ myvarfile }}"
   vars:
     initiator: []
     portdetails: []
