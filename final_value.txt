@@ -1,0 +1,3 @@
+number: RITM2443921, 'Increase Size of Group File Share': '250 GB', 'host': 'bnpp_server1','wwn':'100001000088,100000088080' ,'number of volume':'1'
+number: RITM2463248, 'Increase Size of Group File Share': '100 GB', 'host': 'bnpp_server2','wwn':'1000010000222,10000008808233' ,'number of volume':'1'
+number: RITM2463249, 'Increase Size of Group File Share': '150 GB', 'host': 'bnpp_server3','wwn':'100001000987,10000008808222' ,'number of volume':'3'
