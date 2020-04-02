@@ -12,6 +12,17 @@ do
   echo "num_of_vols: $Number_of_volume">>${i}.yaml
   Wwn=`cat final_value.txt | grep -w $i | awk -F "wwn':'" '{print $2}' | awk -F "'" '{print $1}'`
   echo "init: [$Wwn]">>${i}.yaml
+  Alias_port=`echo "$Wwn" | sed -e $'s/,/ /g'`
+  array=($Alias_port)
+  Alias=""
+  cnt=${#array[@]}
+  for ((j=0;j<cnt;j++));do
+    array[j]="hba$j"
+    Alias+=",${array[j] }"
+    done
+  V_alias=`echo $Alias | sed 's/,//'`
+  echo "alias_port: [$V_alias]">>${i}.yaml
+
   echo "hostId: ${V_host}_IG">>${i}.yaml
   echo "maskingViewId: ${V_host}_MV">>${i}.yaml
   echo "storageGroupId: ${V_host}_SG">>${i}.yaml

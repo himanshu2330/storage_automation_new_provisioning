@@ -34,12 +34,12 @@
   - name: print wwn
     debug: var=wwn
 
-  - name: Run a script
-    script: him.sh
-    register: test
-  - name: print script result
-    debug:
-      msg: "{{ test.stdout_lines }}"
+#  - name: Run a script
+#    script: him.sh
+#    register: test
+#  - name: print script result
+#    debug:
+#      msg: "{{ test.stdout_lines }}"
 
 
   - name: test command
@@ -82,7 +82,7 @@
     register: initiator_renaming
     with_together:
       - "{{ rename_wwn }}"
-      - "{{ test.stdout_lines }}"
+      - "{{ alias_port }}" #change in item since now start script is taking care of port alias 
   - debug:
         msg="{{ initiator_renaming }}"
 
