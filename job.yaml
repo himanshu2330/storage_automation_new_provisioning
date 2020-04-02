@@ -8,4 +8,4 @@
     register: test
   - name: print script result
     debug:
-      msg: "{{ test }}" 
+      msg: "{{ test.stdout_lines }}" 
