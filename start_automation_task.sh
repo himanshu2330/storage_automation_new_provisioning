@@ -2,6 +2,7 @@
 V_ticket=`cat final_value.txt | awk -F "," '{print $1}' | awk -F ": " '{print $2}'`
 for i in ${V_ticket[@]} 
 do
+  rm -rf ${i}.yaml
   touch ${i}.yaml
   echo "Ticket: $i">>${i}.yaml
   V_host=`cat final_value.txt | grep -w $i | awk -F "," '{print $3}' | awk -F ": '" '{print $2}' | awk -F "'" '{print $1}'`
