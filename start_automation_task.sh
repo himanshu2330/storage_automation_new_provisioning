@@ -29,7 +29,7 @@ do
   echo "remote_storage_group: ${V_host}_SG">>${i}.yaml
   echo "Password: smc">>${i}.yaml
   echo "Username: smc">>${i}.yaml
-  echo "unisphere_url: 'https://10.241.210.217:8443'">>${i}.yaml
+  echo "unisphere_url: 'https://xx.xx.xx.xx:8443'">>${i}.yaml
   echo "sloId: Diamond">>${i}.yaml
   echo "srpId: SRP_1">>${i}.yaml
   echo "symmetrixId: 000197600361">>${i}.yaml

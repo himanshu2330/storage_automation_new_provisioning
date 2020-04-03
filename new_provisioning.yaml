@@ -8,6 +8,7 @@
     portdetails: []
     wwn: []
     rename_wwn: []
+    initiator_rename: []
   tasks:
   - name: initiator details
     uri:
@@ -40,25 +41,35 @@
 #  - name: print script result
 #    debug:
 #      msg: "{{ test.stdout_lines }}"
-
-
-  - name: test command
-    shell: cat himanshu.txt |  awk -F ":" '{if ($3 == "{{ item }}") print $0;}' | head -1
-    register: test123
+#
+  - name: test shell command
+    shell: |
+      V_var=`echo {{ wwn }} | sed -e $'s/,/ /g' | sed 's/[][]//g'`
+      array=($V_var)
+      for i in ${array[@]}
+      do
+        V_arr=`echo $i | awk -F ":" '{if ($3 == "{{ item }}") print $0;}'`
+        V_null+=" $V_arr"
+      done
+      echo $V_null | cut -d " " -f1
+    args:
+      executable: /bin/bash
+    register: test
     with_items:
       - "{{ init }}"
-  - name: print output
+  - name: print
     debug:
-      msg: "{{ test123.results|map(attribute='stdout_lines') | list }}"
-
-  - name: creating rename_wwn
+      msg: "{{ test.results|map(attribute='stdout_lines') | list  }}"
+  - name: creating list of initiator to be renamed
     set_fact:
-      rename_wwn: "{{ rename_wwn }} + [ '{{ item }}' ]"
-    with_items: "{{ test123.results|map(attribute='stdout_lines') | list }}"
+      initiator_rename: "{{ initiator_rename }} + [ '{{ item }}' ]"
+    with_items: "{{ test.results|map(attribute='stdout_lines') | list  }}"
 
-  - name: printing rename_wwn
+  - name: print initiator to be renamed
     debug:
-      msg: "{{ rename_wwn }}"
+      msg: "{{ initiator_rename }}"
+
+
 
   - name: Rename initiator
     uri:
@@ -81,7 +92,7 @@
         }
     register: initiator_renaming
     with_together:
-      - "{{ rename_wwn }}"
+      - "{{ initiator_rename }}"
       - "{{ alias_port }}" #change in item since now start script is taking care of port alias 
   - debug:
         msg="{{ initiator_renaming }}"
