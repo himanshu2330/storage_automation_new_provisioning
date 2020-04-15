@@ -272,6 +272,7 @@
       user: "{{ Username }}"
       password: "{{ Password }}"
       force_basic_auth: yes
+      timeout: 180
       status_code: 201,200
       body_format: json
       body:
